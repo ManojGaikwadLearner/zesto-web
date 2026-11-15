@@ -1,0 +1,74 @@
+:host {
+  display: block;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 1px solid #e3e8e6;
+  box-shadow: 0 1px 3px rgb(27 40 48 / 6%);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 0.75rem clamp(1rem, 3vw, 2rem);
+  min-height: 64px;
+}
+
+.header-logo {
+  margin: 0;
+  font-size: clamp(1.1rem, 1rem + 0.6vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #0a716c;
+  white-space: nowrap;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.user-avatar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  img {
+    inline-size: 36px;
+    block-size: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: none;
+    background: #eef1ef;              // placeholder while the image loads
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #e3e8e6;
+  }
+}
+
+.user-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1b2830;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-inline-size: 12ch;
+}
+
+@media (max-width: 600px) {
+  .header-container {
+    min-height: 56px;
+  }
+
+  .user-name {
+    display: none;                     // avatar alone on narrow screens
+  }
+}
