@@ -4,6 +4,7 @@ import { Restaurant } from '../../models/api-response.model';
 import { RestaurantService } from '../../services/restaurant.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-restaurant-listing',
@@ -19,6 +20,7 @@ export class RestaurantListing implements OnInit {
   
   readonly PATHS = PATHS;
   readonly restaurants = signal<Restaurant[]>([]);
+  readonly loading = signal(true);
   readonly error = signal<string | null>(null);
 
   rating = 4.5; // Example rating value, you can replace it with actual data
@@ -26,7 +28,7 @@ export class RestaurantListing implements OnInit {
 
   ngOnInit(): void {
     this.restaurantService.getRestaurants().pipe(
-        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.loading.set(false)), takeUntilDestroyed(this.destroyRef)
       ).subscribe({
       next: (restaurants) => {
         this.restaurants.set(restaurants);
@@ -40,6 +42,6 @@ export class RestaurantListing implements OnInit {
   }
 
   onOrder(restaurantId: number): void {
-    this.router.navigateByUrl(['/food-catalogue', restaurantId].join('/'));
+    this.router.navigateByUrl([PATHS.foodCatalogue, restaurantId].join('/'));
   }
 }

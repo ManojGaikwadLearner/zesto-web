@@ -1,0 +1,39 @@
+@if (loading()) {
+  <p class="status">Loading...</p>
+} @else if (error(); as message) {
+  <div class="alert alert-danger" role="alert">{{ message }}</div>
+} @else {
+    <div class="restaurant-details">
+        <div class="restaurant-header">
+            <h1>{{ restaurant()?.name }}</h1>
+            <button class="checkout-button" (click)="onCheckout()"><i class="fa fa-shopping-cart"></i>Checkout</button>
+        </div>
+        <p>{{ restaurant()?.restaurantDescription }}</p>
+
+        @if (foodItems().length === 0) {
+            <div class="alert alert-warning" role="alert">No food items found.</div>
+        } @else {
+            <h2>Food Menu</h2>
+            <div class="food-list">
+            @for (foodItem of foodItems(); track foodItem.id) {
+                <div class="food-item">
+                    <div class="food-details">
+                        <div class="food-name">{{ foodItem.itemName }}</div>
+                        <div class="food-price">{{ foodItem.price | currency }}</div>
+                    </div>
+                    <div class="food-quantity">
+                        @if (foodItem.quantity > 0) {
+                        <button type="button" class="minus-button" [disabled]="foodItem.quantity === 0"
+                            (click)="decrementQuantity(foodItem)" [attr.aria-label]="'Remove one ' + foodItem.itemName">−</button>
+                        }
+                        <div class="quantity" aria-live="polite">{{ foodItem.quantity }}</div>
+                        <button type="button" class="plus-button" (click)="incrementQuantity(foodItem)"
+                                [attr.aria-label]="'Add one ' + foodItem.itemName">+</button>
+                    </div>
+                </div>
+            }
+            </div>
+        }
+    
+    </div>
+}

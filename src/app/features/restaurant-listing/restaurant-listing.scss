@@ -2,6 +2,41 @@
   display: block;
 }
 
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.85rem 1.1rem;
+  margin: 1rem 0;
+  border: 1px solid;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+
+  // Leading dot, so the two states differ by more than colour alone.
+  &::before {
+    content: '';
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    margin-block-start: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    flex: none;
+  }
+}
+
+.alert-warning {
+  color: #7a5200;
+  background: #fff7e6;
+  border-color: #f3d9a4;
+}
+
+.alert-danger {
+  color: #8c1d18;
+  background: #fdecea;
+  border-color: #f3b9b4;
+}
+
 .restaurant-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
