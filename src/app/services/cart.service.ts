@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { BrowserStorage } from '../core/browser-storage.service';
-import { FoodItem, Restaurant } from '../models/api-response.model';
+import { FoodItem, GetResponseFoodCatalogue, Restaurant } from '../models/api-response.model';
 
 export interface CartState {
   restaurant: Restaurant | null;
@@ -35,6 +35,17 @@ export class CartService {
             this.cartState = data;
             this.computeCartTotals();
         }
+    }
+
+    getFoodItemsOnLoad(cartState: GetResponseFoodCatalogue): FoodItem[] {
+        if (this.cartState.restaurant?.id !== cartState.restaurant?.id) {
+            return cartState.foodItemsList;
+        } 
+        return cartState.foodItemsList.map(item => {
+            const existingItem = this.cartState.foodItemsList.find(i => i.id === item.id);
+            return existingItem ? { ...item, quantity: existingItem.quantity } : item;
+        });
+        
     }
 
     setRestaurant(restaurant: Restaurant | null): void {

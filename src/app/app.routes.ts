@@ -18,6 +18,11 @@ export const routes: Routes = [
         loadComponent: () => import('./features/food-catalogue/food-catalogue').then(m => m.FoodCatalogue)
     },
     {
+        path: route(PATHS.orderSummary),
+        title: 'Order Summary',
+        loadComponent: () => import('./features/order-summary/order-summary').then(m => m.OrderSummary)
+    },
+    {
         path: route(PATHS.pageNotFound),
         title: 'Page not found',
         loadComponent: () => import('./features/page-not-found/page-not-found').then(m => m.PageNotFound)

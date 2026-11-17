@@ -19,7 +19,7 @@
                 <div class="food-item">
                     <div class="food-details">
                         <div class="food-name">{{ foodItem.itemName }}</div>
-                        <div class="food-price">{{ foodItem.price | currency }}</div>
+                        <div class="food-price">{{ foodItem.price | currency: 'INR' }}</div>
                     </div>
                     <div class="food-quantity">
                         @if (foodItem.quantity > 0) {

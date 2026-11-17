@@ -1,7 +1,9 @@
+import { OrderSummary } from "../features/order-summary/order-summary";
+
 export const PATHS = {
   restaurantList: '/restaurant-list',
   foodCatalogue: `/food-catalogue`,
-  checkout: `/checkout`,
+  orderSummary: `/order-summary`,
   pageNotFound: '/page-not-found',
 } as const;
 

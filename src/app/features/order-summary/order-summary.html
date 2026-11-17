@@ -1,0 +1,37 @@
+@if (error(); as message) {
+  <div class="alert alert-danger" role="alert">{{ message }}</div>
+}
+
+<div class="order-summary">
+    <h1>Order Summary</h1>
+    <div class="restaurant-header">
+        <h3>{{ restaurant()?.name }}</h3>
+    </div>
+    <table class="order-summary-table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (foodItem of foodItems(); track foodItem.id) {
+                <tr>
+                    <td>{{ foodItem.itemName }}</td>
+                    <td>{{ foodItem.quantity }}</td>
+                    <td>{{ foodItem.price | currency: 'INR' }}</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">Total</td>
+                <td>{{ totalPrice() | currency: 'INR' }}</td>
+            </tr>
+        </tfoot>
+    </table>
+    <button class="place-order-btn" [disabled]="submitting()" (click)="saveOrder()">
+       {{ submitting() ? 'Processing…' : 'Place Order' }}
+    </button>
+</div>

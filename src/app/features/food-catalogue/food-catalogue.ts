@@ -55,13 +55,12 @@ export class FoodCatalogue {
   private successHandler(response: GetResponseFoodCatalogue): void {
     this.restaurant.set(response.restaurant);
     this.cartService.setRestaurant(response.restaurant);
-    this.foodItems.set(response.foodItemsList);
+    this.foodItems.set(this.cartService.getFoodItemsOnLoad(response));
     this.error.set(null);
   }
 
   private updateFoodItems(foodItem: FoodItem): void {
     const exists = this.foodItemCart.some(item => item.id === foodItem.id);
-    const restaurant = this.restaurant();
 
     if (!exists) {
       this.foodItemCart = [...this.foodItemCart, { ...foodItem }];
@@ -77,8 +76,7 @@ export class FoodCatalogue {
   }
 
   onCheckout(): void {
-    console.log(this.foodItemCart);
-    // this.router.navigateByUrl(PATHS.checkout);
+    this.router.navigateByUrl(PATHS.orderSummary);
   }
 
   decrementQuantity(item: FoodItem): void {
